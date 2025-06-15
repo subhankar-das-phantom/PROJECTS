@@ -21,8 +21,8 @@ function App() {
     setTodo(e.target.value);
   };
 
-  toggleFinished=(params) => { 
-
+  const toggleFinished=(params) => { 
+    setshowFinished(!showFinished)
 
    }
 
@@ -75,20 +75,20 @@ function App() {
             className="bg-white mx-2 w-3/4 p-1"
           />
           <button
-            onClick={handleSave}
-            className="bg-blue-700 hover:bg-blue-900 rounded-xl py-1 px-2 text-white"
+            onClick={handleSave} disabled={todo.length<=3}
+            className="bg-blue-700 disabled:bg-blue-400 hover:bg-blue-900 rounded-xl py-1 px-2 text-white"
           >
             Save
           </button>
         </div>
-        <input type="checkbox" value={showFinished}/> Show Finished
+        <input type="checkbox" onClick={toggleFinished} checked={showFinished}/> Show Finished
         <h2 className="text-lg font-bold">Your Todos</h2>
         <div className="todos">
           {todos.length === 0 && (
             <div className="mx-5 my-2">No Todos To Display.</div>
           )}
           {todos.map((item) => {
-            return (
+            return (showFinished || !item.isCompleted) &&
               <div
                 key={item.id}
                 className="todo flex my-3 w-3/4 justify-between"
@@ -99,7 +99,7 @@ function App() {
                     onChange={handleCheckbox}
                     name={item.id}
                     type="checkbox"
-                    value={item.isCompleted}
+                    checked={item.isCompleted}
                   />
                   <div className={item.isCompleted ? "line-through" : ""}>
                     {item.todo}
@@ -124,7 +124,7 @@ function App() {
                   </button>
                 </div>
               </div>
-            );
+            
           })}
         </div>
       </div>
