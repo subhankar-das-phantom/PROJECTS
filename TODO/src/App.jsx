@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 function App() {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
+  const [showFinished, setshowFinished] = useState(true)
 
   useEffect(() => {
     let todos=JSON.parse(localStorage.getItem("todos"));
@@ -19,6 +20,11 @@ function App() {
   const handleChange = (e) => {
     setTodo(e.target.value);
   };
+
+  toggleFinished=(params) => { 
+
+
+   }
 
   const handleSave = () => {
     setTodos([...todos, { id: uuidv4(), todo, isCompleted: false }]);
@@ -75,6 +81,7 @@ function App() {
             Save
           </button>
         </div>
+        <input type="checkbox" value={showFinished}/> Show Finished
         <h2 className="text-lg font-bold">Your Todos</h2>
         <div className="todos">
           {todos.length === 0 && (
