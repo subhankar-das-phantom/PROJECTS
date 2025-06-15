@@ -7,17 +7,14 @@ function App() {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    let todoString = localStorage.getItem("todos")
-    if(todoString){
-      let todos = JSON.parse(localStorage.getItem("todos")) 
-      setTodos(todos)
-    }
+    let todos=JSON.parse(localStorage.getItem("todos"));
+    setTodos(todos)
   }, [])
   
 
-  const saveToLS = (params) => {
-    localStorage.setItem("todos", JSON.stringify(todos))
-  }
+  const saveToLS= (params) => { 
+    localStorage.setItem("todos",JSON.stringify(todos))
+   }
 
   const handleChange = (e) => {
     setTodo(e.target.value);
@@ -26,7 +23,7 @@ function App() {
   const handleSave = () => {
     setTodos([...todos, { id: uuidv4(), todo, isCompleted: false }]);
     setTodo("");
-    saveToLS();
+    saveToLS()
   };
   const handleEdit = (e, id) => {
     let t = todos.filter((i) => i.id === id);
@@ -35,14 +32,14 @@ function App() {
       return item.id !== id;
     });
     setTodos(newTodos);
-    saveToLS();
+    saveToLS()
   };
   const handleDelete = (e, id) => {
     let newTodos = todos.filter((item) => {
       return item.id !== id;
     });
     setTodos(newTodos);
-    saveToLS();
+    saveToLS()
   };
   const handleCheckbox = (e) => {
     let id = e.target.name;
@@ -52,7 +49,8 @@ function App() {
     let newTodos = [...todos];
     newTodos[index].isCompleted = !newTodos[index].isCompleted;
     setTodos(newTodos);
-    saveToLS();
+    saveToLS()
+
   };
 
   return (
