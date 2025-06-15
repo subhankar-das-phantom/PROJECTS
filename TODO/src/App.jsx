@@ -6,6 +6,19 @@ function App() {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
 
+  useEffect(() => {
+    let todoString = localStorage.getItem("todos")
+    if(todoString){
+      let todos = JSON.parse(localStorage.getItem("todos")) 
+      setTodos(todos)
+    }
+  }, [])
+  
+
+  const saveToLS = (params) => {
+    localStorage.setItem("todos", JSON.stringify(todos))
+  }
+
   const handleChange = (e) => {
     setTodo(e.target.value);
   };
@@ -13,22 +26,23 @@ function App() {
   const handleSave = () => {
     setTodos([...todos, { id: uuidv4(), todo, isCompleted: false }]);
     setTodo("");
+    saveToLS();
   };
-  const handleEdit =(e, id) => {
-    let t= todos.filter(i=>i.id===id)
-    setTodo(t[0].todo)
-        let newTodos = todos.filter((item) => {
+  const handleEdit = (e, id) => {
+    let t = todos.filter((i) => i.id === id);
+    setTodo(t[0].todo);
+    let newTodos = todos.filter((item) => {
       return item.id !== id;
     });
     setTodos(newTodos);
-
-
+    saveToLS();
   };
   const handleDelete = (e, id) => {
     let newTodos = todos.filter((item) => {
       return item.id !== id;
     });
     setTodos(newTodos);
+    saveToLS();
   };
   const handleCheckbox = (e) => {
     let id = e.target.name;
@@ -38,6 +52,7 @@ function App() {
     let newTodos = [...todos];
     newTodos[index].isCompleted = !newTodos[index].isCompleted;
     setTodos(newTodos);
+    saveToLS();
   };
 
   return (
@@ -85,7 +100,7 @@ function App() {
                     {item.todo}
                   </div>
                 </div>
-                <div className="buttons">
+                <div className="buttons flex h-full">
                   <button
                     onClick={(e) => {
                       handleEdit(e, item.id);
