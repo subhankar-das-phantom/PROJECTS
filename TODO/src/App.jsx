@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import Navbar from "./component/navbar";
 import { v4 as uuidv4 } from "uuid";
+import { AiOutlineEdit } from "react-icons/ai";
+import { MdOutlineDeleteOutline } from "react-icons/md";
 
 function App() {
   const [todo, setTodo] = useState("");
@@ -63,16 +65,16 @@ function App() {
     <>
       <Navbar />
       <div className="container bg-blue-100 my-5  mx-auto min-h-[80vh] max-w-[75%] px-3.5">
-        <h1 className="font-bold text-center text-3xl ">
+        <h1 className="font-bold text-center text-xl ">
           Manage Your Task List
         </h1>
         <div className="addtodo">
-          <h1 className="font-bold mx-2 my-2 text-2xl">Make a todo</h1>
+          <h1 className="font-bold mx-2 my-2 text-lg">Make a todo</h1>
           <input
             onChange={handleChange}
             value={todo}
             type="text"
-            className="bg-white mx-2 w-3/4 p-1"
+            className="bg-white mx-2 w-3/4 p-2 rounded-full"
           />
           <button
             onClick={handleSave} disabled={todo.length<=3}
@@ -112,7 +114,7 @@ function App() {
                     }}
                     className="bg-blue-700 hover:bg-blue-900 rounded-xl py-1 px-2 text-white mx-1"
                   >
-                    Edit
+                   <AiOutlineEdit />
                   </button>
                   <button
                     onClick={(e) => {
@@ -120,7 +122,7 @@ function App() {
                     }}
                     className="bg-blue-700 hover:bg-blue-900 rounded-xl py-1 px-2 text-white mx-1"
                   >
-                    Delete
+                    <MdOutlineDeleteOutline />
                   </button>
                 </div>
               </div>
